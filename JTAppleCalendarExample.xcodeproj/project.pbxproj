@@ -9,20 +9,24 @@
 /* Begin PBXBuildFile section */
 		C345C6122386E54A005EBBD9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C345C6112386E54A005EBBD9 /* AppDelegate.swift */; };
 		C345C6142386E54A005EBBD9 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C345C6132386E54A005EBBD9 /* SceneDelegate.swift */; };
-		C345C6162386E54A005EBBD9 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C345C6152386E54A005EBBD9 /* ViewController.swift */; };
+		C345C6162386E54A005EBBD9 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C345C6152386E54A005EBBD9 /* MainViewController.swift */; };
 		C345C61B2386E54C005EBBD9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C345C61A2386E54C005EBBD9 /* Assets.xcassets */; };
 		C345C61E2386E54C005EBBD9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C345C61C2386E54C005EBBD9 /* LaunchScreen.storyboard */; };
 		C345C6272386E5CF005EBBD9 /* JTAppleCalendar in Frameworks */ = {isa = PBXBuildFile; productRef = C345C6262386E5CF005EBBD9 /* JTAppleCalendar */; };
+		C345C6292386EB76005EBBD9 /* DateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C345C6282386EB75005EBBD9 /* DateCell.swift */; };
+		C345C62B2386EBF5005EBBD9 /* CalendarHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = C345C62A2386EBF5005EBBD9 /* CalendarHeader.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		C345C60E2386E54A005EBBD9 /* JTAppleCalendarExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JTAppleCalendarExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C345C6112386E54A005EBBD9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C345C6132386E54A005EBBD9 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		C345C6152386E54A005EBBD9 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		C345C6152386E54A005EBBD9 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		C345C61A2386E54C005EBBD9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C345C61D2386E54C005EBBD9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C345C61F2386E54C005EBBD9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C345C6282386EB75005EBBD9 /* DateCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateCell.swift; sourceTree = "<group>"; };
+		C345C62A2386EBF5005EBBD9 /* CalendarHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarHeader.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,7 +62,9 @@
 			children = (
 				C345C6112386E54A005EBBD9 /* AppDelegate.swift */,
 				C345C6132386E54A005EBBD9 /* SceneDelegate.swift */,
-				C345C6152386E54A005EBBD9 /* ViewController.swift */,
+				C345C6152386E54A005EBBD9 /* MainViewController.swift */,
+				C345C6282386EB75005EBBD9 /* DateCell.swift */,
+				C345C62A2386EBF5005EBBD9 /* CalendarHeader.swift */,
 				C345C61A2386E54C005EBBD9 /* Assets.xcassets */,
 				C345C61C2386E54C005EBBD9 /* LaunchScreen.storyboard */,
 				C345C61F2386E54C005EBBD9 /* Info.plist */,
@@ -142,9 +148,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C345C6162386E54A005EBBD9 /* ViewController.swift in Sources */,
+				C345C6162386E54A005EBBD9 /* MainViewController.swift in Sources */,
 				C345C6122386E54A005EBBD9 /* AppDelegate.swift in Sources */,
 				C345C6142386E54A005EBBD9 /* SceneDelegate.swift in Sources */,
+				C345C6292386EB76005EBBD9 /* DateCell.swift in Sources */,
+				C345C62B2386EBF5005EBBD9 /* CalendarHeader.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
