@@ -133,7 +133,7 @@ class MainViewController: UIViewController {
     }
     
     @objc private func goToday() {
-        calendarView?.scrollToDate(Date(),animateScroll: false)
+        calendarView?.scrollToDate(Date(),animateScroll: true)
     }
     
     override func viewDidLoad() {
