@@ -67,7 +67,7 @@ class MainViewController: UIViewController {
         let goTodayButton = UIButton()
         goTodayButton.setTitle("오늘", for: .normal)
         goTodayButton.setTitleColor(.systemBlue, for: .normal)
-        goTodayButton.addTarget(self, action: #selector(goToday), for: .touchUpInside)
+        goTodayButton.addTarget(self, action: #selector(callGoToday), for: .touchUpInside)
         headerView.addSubview(goTodayButton)
         goTodayButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
@@ -132,13 +132,17 @@ class MainViewController: UIViewController {
         calendarWidthAnchor?.isActive = true
     }
     
-    @objc private func goToday() {
-        calendarView?.scrollToDate(Date(),animateScroll: true)
+    @objc func callGoToday() {
+        goToday()
+    }
+    
+    private func goToday(_ animateScroll: Bool = true) {
+        calendarView?.scrollToDate(Date(),animateScroll: animateScroll)
     }
     
     override func viewDidLoad() {
-        goToday()
-        calendarView?.selectDates([Date()], triggerSelectionDelegate: true)
+        goToday(false)
+        calendarView?.selectDates([Date()])
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
