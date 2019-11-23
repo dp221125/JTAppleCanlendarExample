@@ -9,10 +9,15 @@
 import UIKit
 import JTAppleCalendar
 
+enum CellList {
+    static let dateCell = "DateCell"
+    static let calendarHeader = "CalendarHeader"
+}
+
 class MainViewController: UIViewController {
     
     private weak var calendarView: JTACMonthView?
-    private weak var yearLabel: UILabel?
+    private weak var yearMonthLabel: UILabel?
     private weak var headerView: UIView?
     private weak var selecedLabel: UILabel?
     
@@ -23,17 +28,18 @@ class MainViewController: UIViewController {
     private var year: String? {
         didSet(oldValue) {
             if oldValue != self.year {
-                self.yearLabel?.text = self.year
+                self.yearMonthLabel?.text = self.year
             }
         }
     }
     private var selectedDate = [Date]()
-
+    
     override func loadView() {
         let view = UIView()
         view.backgroundColor = .systemBackground
         self.view = view
         
+        //Header Background View
         let headerView = UIView()
         headerView.backgroundColor = .systemBackground
         self.headerView = headerView
@@ -45,28 +51,31 @@ class MainViewController: UIViewController {
             headerView.heightAnchor.constraint(equalToConstant: 30)
         ])
         
-        let yearLabel = UILabel()
-        yearLabel.font = .boldSystemFont(ofSize: 20)
-        self.yearLabel = yearLabel
-        headerView.addSubview(yearLabel)
-        yearLabel.translatesAutoresizingMaskIntoConstraints = false
+        //년과 월이 나타나는 라벨
+        let yearMonthLabel = UILabel()
+        yearMonthLabel.font = .boldSystemFont(ofSize: 20)
+        self.yearMonthLabel = yearMonthLabel
+        headerView.addSubview(yearMonthLabel)
+        yearMonthLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            yearLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor,constant: 16),
-            yearLabel.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
-            yearLabel.heightAnchor.constraint(equalToConstant: 20)
+            yearMonthLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor,constant: 16),
+            yearMonthLabel.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
+            yearMonthLabel.heightAnchor.constraint(equalToConstant: 20)
         ])
         
-        let button = UIButton()
-        button.setTitle("오늘", for: .normal)
-        button.setTitleColor(.systemBlue, for: .normal)
-        button.addTarget(self, action: #selector(goToday), for: .touchUpInside)
-        headerView.addSubview(button)
-        button.translatesAutoresizingMaskIntoConstraints = false
+        //오늘이 있는 달로 가는 버튼
+        let goTodayButton = UIButton()
+        goTodayButton.setTitle("오늘", for: .normal)
+        goTodayButton.setTitleColor(.systemBlue, for: .normal)
+        goTodayButton.addTarget(self, action: #selector(goToday), for: .touchUpInside)
+        headerView.addSubview(goTodayButton)
+        goTodayButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            button.centerYAnchor.constraint(equalTo: yearLabel.centerYAnchor),
-            button.trailingAnchor.constraint(equalTo: headerView.trailingAnchor,constant: -16)
+            goTodayButton.centerYAnchor.constraint(equalTo: yearMonthLabel.centerYAnchor),
+            goTodayButton.trailingAnchor.constraint(equalTo: headerView.trailingAnchor,constant: -16)
         ])
         
+        //캘린더
         let calendarView = JTACMonthView()
         calendarView.backgroundColor = .systemBackground
         calendarView.scrollingMode = .stopAtEachCalendarFrame
@@ -74,16 +83,18 @@ class MainViewController: UIViewController {
         calendarView.showsHorizontalScrollIndicator = false
         calendarView.calendarDataSource = self
         calendarView.calendarDelegate = self
-        calendarView.register(DateCell.self, forCellWithReuseIdentifier: "DateCell")
-        calendarView.register(CalendarHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "CalendarHeader")
+        calendarView.register(DateCell.self, forCellWithReuseIdentifier: CellList.dateCell)
+        calendarView.register(CalendarHeader.self,
+                              forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
+                              withReuseIdentifier: CellList.calendarHeader)
         self.calendarView = calendarView
-        
         view.addSubview(calendarView)
         calendarView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             calendarView.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor)
         ])
         
+        //셀을 선택하면 선택한 셀의 일이 나오는 라벨
         let selecedLabel = UILabel()
         view.addSubview(selecedLabel)
         self.selecedLabel = selecedLabel
@@ -96,22 +107,16 @@ class MainViewController: UIViewController {
         checkOrientation()
     }
     
-    
-    override func viewDidLoad() {
-        goToday()
-    }
-    
+    //디바이스 방향에 따라 제약조건을 설정한다.
     private func checkOrientation() {
         
-        guard let calendarView = self.calendarView, let yearLabel = self.yearLabel  else { return }
+        guard let calendarView = self.calendarView, let yearLabel = self.yearMonthLabel  else { return }
         
         calendarTopAnchor?.isActive = false
         calendarHeightAnchor?.isActive = false
         calendarWidthAnchor?.isActive = false
         
-        let orientation = UIDevice.current.orientation
-        
-        if orientation.isLandscape {
+        if UIDevice.current.orientation.isLandscape {
             calendarTopAnchor = calendarView.centerYAnchor.constraint(equalTo: view.centerYAnchor)
             calendarHeightAnchor = calendarView.heightAnchor.constraint(equalTo: view.heightAnchor, constant: -150)
             calendarWidthAnchor =  calendarView.widthAnchor.constraint(equalTo: calendarView.heightAnchor)
@@ -128,7 +133,12 @@ class MainViewController: UIViewController {
     }
     
     @objc private func goToday() {
-        calendarView?.scrollToDate(Date())
+        calendarView?.scrollToDate(Date(),animateScroll: false)
+    }
+    
+    override func viewDidLoad() {
+        goToday()
+        calendarView?.selectDates([Date()], triggerSelectionDelegate: true)
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
@@ -139,11 +149,7 @@ class MainViewController: UIViewController {
 }
 extension MainViewController: JTACMonthViewDataSource {
     func configureCalendar(_ calendar: JTACMonthView) -> ConfigurationParameters {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy MM dd"
-        formatter.timeZone = TimeZone(abbreviation: "UTC")
-        let startDate = formatter.date(from: "2016 01 01")!
-        
+        let startDate: Date! = "2016 01 01".convertDate("yyyy MM dd")
         let endDate = Date()
         
         return ConfigurationParameters(startDate: startDate,
@@ -154,7 +160,7 @@ extension MainViewController: JTACMonthViewDataSource {
     }
 }
 extension MainViewController: JTACMonthViewDelegate {
-
+    
     func calendar(_ calendar: JTACMonthView, willDisplay cell: JTACDayCell, forItemAt date: Date, cellState: CellState, indexPath: IndexPath) {
         guard let dateCell = cell as? DateCell else { return }
         dateCell.dateLabel?.text = cellState.text
@@ -169,16 +175,13 @@ extension MainViewController: JTACMonthViewDelegate {
         cell.dateLabel?.text = cellState.text
         cell.dateLabel?.textColor = .label
         
-        let calendar = Calendar.current
-
-        if calendar.isDateInToday(cellState.date) {
+        if Calendar.current.isDateInToday(cellState.date) {
             cell.todayView?.isHidden = false
             cell.todayView?.layer.borderWidth = 2.0
             cell.todayView?.layer.borderColor = UIColor.systemOrange.cgColor
         } else {
             cell.todayView?.isHidden = true
         }
-           
         
         if cellState.day.rawValue == 7 {
             cell.dateLabel?.textColor = .systemBlue
@@ -199,13 +202,8 @@ extension MainViewController: JTACMonthViewDelegate {
     func calendar(_ calendar: JTACMonthView, headerViewForDateRange range: (start: Date, end: Date), at indexPath: IndexPath) -> JTACMonthReusableView {
         guard let header = calendar.dequeueReusableJTAppleSupplementaryView(withReuseIdentifier: "CalendarHeader", for: indexPath) as? CalendarHeader else { fatalError() }
         
-        let formatter = DateFormatter()
-        formatter.dateFormat = "MMM"
-        formatter.locale = Locale(identifier: "ko-KR")
-        let month = formatter.string(from: range.start)
-        
-        formatter.dateFormat = "yyyy년"
-        let year =  formatter.string(from: range.start)
+        let month = range.start.convertString("MMM")
+        let year = range.start.convertString("yyyy년")
         self.year = "\(year) \(month)"
         return header
     }
@@ -218,11 +216,8 @@ extension MainViewController: JTACMonthViewDelegate {
         if let cell = cell as? DateCell {
             let localDate = Date(timeInterval: TimeInterval(Calendar.current.timeZone.secondsFromGMT()), since: date)
             
-            let dateformatter = DateFormatter()
-            dateformatter.dateFormat = "yyyy년 MMM dd일"
-            dateformatter.locale = Locale(identifier: "ko-KR")
             self.selectedDate = [date]
-            self.selecedLabel?.text = dateformatter.string(from: localDate)
+            self.selecedLabel?.text = localDate.convertString("yyyy년 MMM dd일")
             cell.selectView?.isHidden = false
         }
     }
@@ -236,5 +231,5 @@ extension MainViewController: JTACMonthViewDelegate {
     func calendarDidScroll(_ calendar: JTACMonthView) {
         calendar.selectDates(self.selectedDate)
     }
-
+    
 }

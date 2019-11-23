@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C32F82EC2388EE180015F008 /* DateTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32F82EB2388EE180015F008 /* DateTool.swift */; };
 		C345C6122386E54A005EBBD9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C345C6112386E54A005EBBD9 /* AppDelegate.swift */; };
 		C345C6142386E54A005EBBD9 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C345C6132386E54A005EBBD9 /* SceneDelegate.swift */; };
 		C345C6162386E54A005EBBD9 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C345C6152386E54A005EBBD9 /* MainViewController.swift */; };
@@ -18,6 +19,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		C32F82EB2388EE180015F008 /* DateTool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateTool.swift; sourceTree = "<group>"; };
 		C345C60E2386E54A005EBBD9 /* JTAppleCalendarExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JTAppleCalendarExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C345C6112386E54A005EBBD9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C345C6132386E54A005EBBD9 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -63,6 +65,7 @@
 				C345C6112386E54A005EBBD9 /* AppDelegate.swift */,
 				C345C6132386E54A005EBBD9 /* SceneDelegate.swift */,
 				C345C6152386E54A005EBBD9 /* MainViewController.swift */,
+				C32F82EB2388EE180015F008 /* DateTool.swift */,
 				C345C6282386EB75005EBBD9 /* DateCell.swift */,
 				C345C62A2386EBF5005EBBD9 /* CalendarHeader.swift */,
 				C345C61A2386E54C005EBBD9 /* Assets.xcassets */,
@@ -153,6 +156,7 @@
 				C345C6142386E54A005EBBD9 /* SceneDelegate.swift in Sources */,
 				C345C6292386EB76005EBBD9 /* DateCell.swift in Sources */,
 				C345C62B2386EBF5005EBBD9 /* CalendarHeader.swift in Sources */,
+				C32F82EC2388EE180015F008 /* DateTool.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
